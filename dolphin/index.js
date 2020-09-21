@@ -37,7 +37,7 @@ function generate(playerId) {
     console.log("No connection for " + playerId);
     return;
   }
-  console.log("Generating packet for " + playerId + " port=" + connection.port);
+  // console.log("Generating packet for " + playerId + " port=" + connection.port);
   const packet = Buffer.alloc(80);
   packet[0] = playerId;
   packet[1] = 2;
@@ -49,7 +49,7 @@ function generate(playerId) {
   packet.writeUInt32LE(seq++, 12);
   const player = players[playerId];
   if (!player) {
-    console.log("No player", playerId);
+    // console.log("No player", playerId);
     return;
   }
   const buttons = player.buttons;
@@ -72,10 +72,6 @@ function generate(playerId) {
     (buttons.a << 5) |
     (buttons.b << 6) |
     (buttons.two << 7);
-
-  if (buttons.a) {
-    console.log("A button pressed for " + playerId);
-  }
 
   // dpad
   packet[24] = buttons.left ? 255 : 0;
@@ -182,10 +178,10 @@ const server = dgram.createSocket("udp4");
 server.bind(26760, "0.0.0.0");
 server.on("message", (msg, rinfo) => {
   const type = msg.readUInt32LE(16, 16);
-  console.log("Got a message:", type.toString(16));
+  // console.log("Got a message:", type.toString(16));
   switch (type) {
     case 0x100001: {
-      console.log("R :PortInfo");
+      // console.log("R :PortInfo");
       const count = msg.readInt32LE(20);
       // console.log("Got a request for info on device count:", count);
       let last = null;
@@ -201,13 +197,13 @@ server.on("message", (msg, rinfo) => {
         // Battery
         controllerData[10] = 0x05;
         const packed = pack(0x100001, controllerData);
-        console.log(" T:PortInfo", controller);
+        // console.log(" T:PortInfo", controller);
         server.send(packed, 0, packed.length, rinfo.port, rinfo.address);
       }
       break;
     }
     case 0x100002: {
-      console.log("R :PadInfo");
+      // console.log("R :PadInfo");
       if (msg[21] == 0) {
         for (let i = 0; i < 4; ++i) {
           reporting.set(i, rinfo);

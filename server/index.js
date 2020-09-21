@@ -98,7 +98,7 @@ class Dolphin {
         this.players[index].clientId == data.clientId
       ) {
         this.players[index].close(CLOSE_CODES.KICKED);
-        delete this.players[index];
+        this.players[index] = null;
       }
     }
   }
