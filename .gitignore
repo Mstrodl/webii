@@ -1,0 +1,17 @@
+.zsign_cache
+.parcel-cache
+__pycache__
+pnpm-debug.log
+dist
+.cache
+.tern-port
+config.json
+package-lock.json
+README.html
+*~
+\#*\#
+node_modules
+yarn-error.log
+npm-error.log
+/.vscode
+/.idea

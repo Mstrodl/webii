@@ -1,0 +1,29 @@
+{
+  "name": "webii-dolphin",
+  "version": "1.0.0",
+  "description": "Client which receives input events from devices and sends them to the Dolphin emulator",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/mstrodl/webii.git"
+  },
+  "keywords": [
+    "dolphin-emu",
+    "dolphin",
+    "controller"
+  ],
+  "author": "Mary Strodl <ipadlover8322@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mstrodl/webii/issues"
+  },
+  "homepage": "https://github.com/mstrodl/webii#readme",
+  "dependencies": {
+    "crc": "^3.8.0",
+    "long": "^4.0.0",
+    "ws": "^7.3.1"
+  }
+}

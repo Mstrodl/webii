@@ -1,0 +1,27 @@
+{
+  "name": "webii-server",
+  "version": "1.0.0",
+  "description": "Server for routing wii remote inputs from devices to the emulator",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/mstrodl/webii.git"
+  },
+  "keywords": [
+    "dolphin-emu",
+    "dolphin",
+    "controller"
+  ],
+  "author": "Mary Strodl <ipadlover8322@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mstrodl/webii/issues"
+  },
+  "homepage": "https://github.com/mstrodl/webii#readme",
+  "dependencies": {
+    "ws": "^7.3.1"
+  }
+}

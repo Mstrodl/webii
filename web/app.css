@@ -1,0 +1,8 @@
+.button {
+    cursor: pointer;
+}
+.controller > svg {
+    user-select: none;
+    height: 100%;
+    width: auto;
+}

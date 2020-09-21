@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="36.113mm" height="148.58mm" version="1.1" viewBox="0 0 36.113 148.58" xmlns="http://www.w3.org/2000/svg">
+ <g transform="translate(-62.997 -97.765)">
+  <rect x="63.272" y="98.04" width="35.562" height="148.03" ry="6.3718" fill="#f2f2f4" stroke="#000" stroke-linecap="round" stroke-linejoin="bevel" stroke-width=".551"/>
+  <g id="button-one">
+   <circle cx="81.923" cy="206.99" r="4.2259" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="bevel" stroke-width=".551"/>
+   <text transform="translate(7.1623 6.1117)" fill="#000000" font-family="sans-serif" font-size="4.2333px" letter-spacing="0px" word-spacing="0px" style="line-height:1.25;shape-inside:url(#rect110);white-space:pre" xml:space="preserve"><tspan x="73.376953" y="202.42129"><tspan style="shape-inside:url(#rect110)">1</tspan></tspan></text>
+  </g>
+  <g id="button-b">
+   <text transform="translate(7.0362 -12.668)" fill="#000000" font-family="sans-serif" font-size="4.2333px" letter-spacing="0px" word-spacing="0px" style="line-height:1.25;shape-inside:url(#rect1208);white-space:pre" xml:space="preserve"><tspan x="73.376953" y="202.42129"><tspan style="shape-inside:url(#rect1208)">B</tspan></tspan></text>
+   <rect x="76.602" y="181.95" width="10.642" height="12.522" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="bevel" stroke-width=".48353"/>
+  </g>
+  <circle id="button-power" cx="72.7" cy="104.95" r="2.7422" fill="#a00"/>
+  <g id="button-up" transform="translate(-.058556)" fill="none" stroke="#000" stroke-width=".551">
+   <path d="m79.073 113.48v2.8781l2.8936 3.7522 2.9458-3.4997v-3.1165z"/>
+   <path d="m81.993 114.34v3.5106"/>
+  </g>
+  <g id="button-down" transform="translate(-.058556)" fill="none" stroke="#000" stroke-width=".551">
+   <path d="m79.073 130.85v-2.8781l2.8936-4.0916 2.9458 3.8392v3.1165z"/>
+   <path d="m81.993 125.98v3.5106"/>
+  </g>
+  <g id="button-left" transform="translate(-.058556)" fill="none" stroke="#000" stroke-width=".551">
+   <path d="m73.045 118.98h3.0626l4.1329 2.8936-4.0649 2.9458h-3.1165z"/>
+   <path d="m77.928 121.9h-3.5106"/>
+  </g>
+  <g id="button-right" transform="translate(-.058556)" fill="none" stroke="#000" stroke-width=".551">
+   <path d="m90.919 118.98h-3.0626l-4.1329 2.8936 4.0649 2.9458h3.1165z"/>
+   <path d="m89.57 121.9h-3.5106"/>
+  </g>
+  <g transform="translate(-.03899)">
+   <circle cx="81.962" cy="220.22" r="4.2259" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="bevel" stroke-width=".551"/>
+   <text transform="translate(7.2954 19.369)" fill="#000000" font-family="sans-serif" font-size="4.2333px" letter-spacing="0px" word-spacing="0px" style="line-height:1.25;shape-inside:url(#rect120);white-space:pre" xml:space="preserve"><tspan x="73.376953" y="202.42129"><tspan style="shape-inside:url(#rect120)">2</tspan></tspan></text>
+  </g>
+  <g id="button-a" transform="translate(-.32894)">
+   <circle cx="82.252" cy="144.22" r="5.7947" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="bevel" stroke-width=".551"/>
+   <text transform="translate(8.0708 6.5068)" fill="#000000" font-family="sans-serif" font-size="4.2333px" letter-spacing="0px" word-spacing="0px" style="line-height:1.25;shape-inside:url(#rect124);white-space:pre" xml:space="preserve"><tspan x="72.734375" y="139.25527"><tspan style="shape-inside:url(#rect124)">A</tspan></tspan></text>
+  </g>
+  <g transform="translate(-.072498)" fill="none" stroke="#000">
+   <circle cx="91.988" cy="168.68" r="3.0358" stroke-linecap="round" stroke-linejoin="bevel" stroke-width=".551"/>
+   <path d="m91.988 166.65v4.0554" stroke-width=".26458px"/>
+   <path d="m94.015 168.68h-4.0554" stroke-width=".26458px"/>
+  </g>
+  <g id="button-select" fill="none" stroke="#000">
+   <circle cx="71.98" cy="168.79" r="3.0848" stroke-linecap="round" stroke-linejoin="bevel" stroke-width=".551"/>
+   <path d="m74.008 168.79h-4.0554" stroke-width=".26458px"/>
+  </g>
+  <circle id="button-home" cx="81.923" cy="168.79" r="3.0848" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="bevel" stroke-width=".551"/>
+  <g id="player-lights" fill="#37abc8">
+   <rect x="75.924" y="236.02" width="3.2643" height="3.3562"/>
+   <rect x="69.725" y="236.02" width="3.2643" height="3.3562"/>
+   <rect x="89.118" y="236.02" width="3.2643" height="3.3562"/>
+   <rect x="82.919" y="236.02" width="3.2643" height="3.3562"/>
+  </g>
+ </g>
+</svg>
