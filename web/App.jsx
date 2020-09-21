@@ -49,13 +49,21 @@ function PinPicker({setPin, error}) {
 }
 
 class Client {
-  constructor(pin) {
+  constructor(pin, ready) {
     this.ws = new WebSocket(config.server);
     this.ws.addEventListener("open", () => {
       this.send("hello", {
         type: "client",
         pin: pin,
       });
+    });
+    this.ws.addEventListener("message", (event) => {
+      const msg = JSON.parse(event.data);
+      console.log(msg, this);
+      if (msg.op == "hello") {
+        this.player = msg.d.player;
+        ready();
+      }
     });
   }
 
@@ -115,81 +123,64 @@ const errors = {
 };
 
 function Controller({setError, pin}) {
-  const client = new Client(pin);
-  client.ws.addEventListener("close", (event) => {
-    setError(
-      errors[event.code] ||
-        "You may have had a network error. Try reconnecting. Error code: " +
-          event.code
-    );
-  });
+  const [connected, setConnected] = useState(false);
+  const [client, setClient] = useState(null);
   useEffect(() => {
-    let running = true;
-    const gn = new GyroNorm();
-    gn.init()
-      .then(() => {
-        gn.start((data) => {
-          if (running) {
-            client.axis("accelerometer", {
-              // 1g = 9.8m/s²
-              x: data.dm.gx / 9.8,
-              y: data.dm.gy / 9.8,
-              // Z should be fine
-              z: data.dm.gz / 9.8,
-              t: Date.now(),
-            });
-            client.axis("gyroscope", {
-              // (Degrees / sec)
-              x: data.dm.alpha,
-              y: -data.dm.gamma,
-              z: data.dm.beta,
-            });
-          }
-        });
-      })
-      .catch((err) => {
-        console.error("No gyro support?", err);
-      });
-    return () => {
-      running = false;
+    const client = new Client(pin, () => {
+      setConnected(true);
+    });
+    setClient(client);
+    const closeListener = (event) => {
+      setError(
+        errors[event.code] ||
+          "You may have had a network error. Try reconnecting. Error code: " +
+            event.code
+      );
     };
-  });
-  // useEffect(() => {
-  //   const accelerometer = new LinearAccelerationSensor({
-  //     frequency: 60,
-  //   });
-  //   accelerometer.addEventListener("reading", () => {
-  //     client.axis("accelerometer", {
-  //       /* Right = positive */
-  //       x: -accelerometer.x / 9.8,
-  //       /* Accel down +z */
-  //       y: accelerometer.z / 9.8,
-  //       /* ? */
-  //       z: accelerometer.y / 9.8,
-  //       t: performance.now() * 0.001,
-  //     });
-  //   });
-  //   accelerometer.start();
-  //   return () => {
-  //     accelerometer.stop();
-  //   };
-  // }, []);
+    client.ws.addEventListener("close", closeListener);
+    return () => {
+      client.ws.removeEventListener("close", closeListener);
+      client.close();
+    };
+  }, [pin]);
+  useEffect(() => {
+    if (connected) {
+      let running = true;
+      const gn = new GyroNorm();
+      gn.init()
+        .then(() => {
+          gn.start((data) => {
+            if (running) {
+              client.axis("accelerometer", {
+                // 1g = 9.8m/s²
+                x: data.dm.gx / 9.8,
+                y: data.dm.gy / 9.8,
+                // Z should be fine
+                z: data.dm.gz / 9.8,
+                t: Date.now(),
+              });
+              client.axis("gyroscope", {
+                // (Degrees / sec)
+                x: data.dm.alpha,
+                y: -data.dm.gamma,
+                z: data.dm.beta,
+              });
+            }
+          });
+        })
+        .catch((err) => {
+          console.error("No gyro support?", err);
+        });
+      return () => {
+        running = false;
+      };
+    }
+  }, [connected]);
 
-  // useEffect(() => {
-  //   const gyroscope = new Gyroscope();
-  //   gyroscope.addEventListener("reading", () => {
-  //     client.axis("gyroscope", {
-  //       x: gyroscope.x,
-  //       y: gyroscope.y,
-  //       z: gyroscope.z,
-  //     });
-  //   });
-  //   gyroscope.start();
-  //   return () => {
-  //     gyroscope.stop();
-  //   };
-  // }, []);
-
+  if (!connected) {
+    return "Connecting...";
+  }
+  console.log(client.player);
   return (
     <div className="controller">
       <svg
@@ -454,11 +445,35 @@ function Controller({setError, pin}) {
               strokeWidth=".551"
             />
           </Button>
-          <g id="player-lights" fill="#37abc8">
-            <rect x="75.924" y="236.02" width="3.2643" height="3.3562" />
-            <rect x="69.725" y="236.02" width="3.2643" height="3.3562" />
-            <rect x="89.118" y="236.02" width="3.2643" height="3.3562" />
-            <rect x="82.919" y="236.02" width="3.2643" height="3.3562" />
+          <g id="player-lights">
+            <rect
+              x="69.725"
+              y="236.02"
+              width="3.2643"
+              height="3.3562"
+              fill={client.player >= 0 ? LED_ON : LED_OFF}
+            />
+            <rect
+              x="75.924"
+              y="236.02"
+              width="3.2643"
+              height="3.3562"
+              fill={client.player >= 1 ? LED_ON : LED_OFF}
+            />
+            <rect
+              x="82.919"
+              y="236.02"
+              width="3.2643"
+              height="3.3562"
+              fill={client.player >= 2 ? LED_ON : LED_OFF}
+            />
+            <rect
+              x="89.118"
+              y="236.02"
+              width="3.2643"
+              height="3.3562"
+              fill={client.player >= 3 ? LED_ON : LED_OFF}
+            />
           </g>
         </g>
       </svg>
@@ -466,6 +481,8 @@ function Controller({setError, pin}) {
   );
 }
 
+const LED_ON = "#37abc8";
+const LED_OFF = "#ccc";
 /* 
 
 
