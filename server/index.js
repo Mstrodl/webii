@@ -65,6 +65,9 @@ class Dolphin {
     this.players = new Array(4);
     this.pin = generatePin();
     this.CLIENT_COUNT = 0;
+    this.send("hello", {
+      pin: this.pin,
+    });
   }
 
   send(op, data) {

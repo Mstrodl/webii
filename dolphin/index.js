@@ -29,13 +29,15 @@ ws.on("message", (frame) => {
 const players = {};
 let seq = 0;
 
-const reporting = new Set();
+const reporting = new Map();
 
 function generate(playerId) {
+  const connection = reporting.get(playerId);
   if (!connection) {
-    console.log("No connection!");
+    console.log("No connection for " + playerId);
     return;
   }
+  console.log("Generating packet for " + playerId + " port=" + connection.port);
   const packet = Buffer.alloc(80);
   packet[0] = playerId;
   packet[1] = 2;
@@ -70,6 +72,10 @@ function generate(playerId) {
     (buttons.a << 5) |
     (buttons.b << 6) |
     (buttons.two << 7);
+
+  if (buttons.a) {
+    console.log("A button pressed for " + playerId);
+  }
 
   // dpad
   packet[24] = buttons.left ? 255 : 0;
@@ -108,12 +114,12 @@ function generate(playerId) {
 }
 
 setInterval(() => {
-  for (const playerId of reporting) {
+  for (const playerId of reporting.keys()) {
     if (players[playerId]) {
       generate(playerId);
     }
   }
-}, 50);
+}, 250);
 
 const HANDLERS = {
   hello(data) {
@@ -172,11 +178,9 @@ function pack(type, content) {
   return result;
 }
 
-let connection = null;
 const server = dgram.createSocket("udp4");
 server.bind(26760, "0.0.0.0");
 server.on("message", (msg, rinfo) => {
-  connection = rinfo;
   const type = msg.readUInt32LE(16, 16);
   console.log("Got a message:", type.toString(16));
   switch (type) {
@@ -198,13 +202,7 @@ server.on("message", (msg, rinfo) => {
         controllerData[10] = 0x05;
         const packed = pack(0x100001, controllerData);
         console.log(" T:PortInfo", controller);
-        server.send(
-          packed,
-          0,
-          packed.length,
-          connection.port,
-          connection.address
-        );
+        server.send(packed, 0, packed.length, rinfo.port, rinfo.address);
       }
       break;
     }
@@ -212,13 +210,13 @@ server.on("message", (msg, rinfo) => {
       console.log("R :PadInfo");
       if (msg[21] == 0) {
         for (let i = 0; i < 4; ++i) {
-          reporting.add(i);
+          reporting.set(i, rinfo);
         }
       } else if (msg[21] == 1) {
-        reporting.add(msg[22]);
+        reporting.set(msg[22], rinfo);
       }
 
-      for (const playerId of reporting) {
+      for (const playerId of reporting.keys()) {
         generate(playerId);
       }
       break;
