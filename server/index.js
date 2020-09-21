@@ -169,6 +169,9 @@ class Client {
 
   onStick(data) {
     if (this.player !== null) {
+      if (data.axis == "accelerometer") {
+        //console.log(data);
+      }
       this.server.send("stick", {
         player: this.player,
         axis: data.axis,

@@ -134,6 +134,7 @@ function Controller({setError, pin}) {
               // 1g = 9.8m/s²
               x: data.dm.gx / 9.8,
               y: data.dm.gy / 9.8,
+              // Z should be fine
               z: data.dm.gz / 9.8,
               t: Date.now(),
             });
@@ -142,7 +143,6 @@ function Controller({setError, pin}) {
               x: data.dm.alpha,
               y: -data.dm.gamma,
               z: data.dm.beta,
-              t: Date.now(),
             });
           }
         });
