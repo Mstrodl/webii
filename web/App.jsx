@@ -147,7 +147,7 @@ function Controller({setError, pin}) {
     client.ws.addEventListener("close", closeListener);
     return () => {
       client.ws.removeEventListener("close", closeListener);
-      client.close();
+      client.ws.close();
     };
   }, [pin]);
   useEffect(() => {
