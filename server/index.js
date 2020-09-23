@@ -148,7 +148,7 @@ class Client {
         player: this.player,
       });
     });
-    this.server.once("close", () => {
+    this.server.ws.once("close", () => {
       this.close(CLOSE_CODES.DOLPHIN_DIED);
     });
 
