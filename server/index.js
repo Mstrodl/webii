@@ -83,12 +83,6 @@ class Dolphin {
     });
     this.ws.on("close", () => {
       this.sessions.delete(this.pin);
-      for (let i = 0; i < 4; ++i) {
-        if (this.players[i]) {
-          this.players[i].close(CLOSE_CODES.DOLPHIN_DIED);
-        }
-      }
-
       clearInterval(this.interval);
     });
   }
@@ -147,12 +141,15 @@ class Client {
       const data = JSON.parse(frame);
       this["on" + data.op[0].toUpperCase() + data.op.substring(1)](data.d);
     });
-    this.ws.on("close", (code) => {
+    this.ws.once("close", (code) => {
       clearInterval(this.interval);
       delete this.server.players[this.player];
       this.server.send("disconnect", {
         player: this.player,
       });
+    });
+    this.server.once("close", () => {
+      this.close(CLOSE_CODES.DOLPHIN_DIED);
     });
 
     this.player = this.server.attachPlayer(this);
