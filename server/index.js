@@ -11,6 +11,7 @@ const CLOSE_CODES = {
   KICKED: 4002,
   ROOM_FULL: 4003,
   BAD_FORMAT: 4004,
+  DOLPHIN_DIED: 4005,
 };
 
 wss.on("connection", (ws) => {
@@ -62,11 +63,33 @@ class Dolphin {
       const data = JSON.parse(frame);
       this["on" + data.op[0].toUpperCase() + data.op.substring(1)](data.d);
     });
+
+    this.ws.on("pong", () => {
+      this.ws.isAlive = true;
+    });
+    this.interval = setInterval(() => {
+      if (this.ws.isAlive === false) {
+        this.ws.terminate();
+      }
+      this.ws.isAlive = false;
+      this.ws.ping(() => {});
+    }, 30000);
+
     this.players = new Array(4);
     this.pin = generatePin();
     this.CLIENT_COUNT = 0;
     this.send("hello", {
       pin: this.pin,
+    });
+    this.ws.on("close", () => {
+      this.sessions.delete(this.pin);
+      for (let i = 0; i < 4; ++i) {
+        if (this.players[i]) {
+          this.players[i].close(CLOSE_CODES.DOLPHIN_DIED);
+        }
+      }
+
+      clearInterval(this.interval);
     });
   }
 
@@ -125,7 +148,7 @@ class Client {
       this["on" + data.op[0].toUpperCase() + data.op.substring(1)](data.d);
     });
     this.ws.on("close", (code) => {
-      clearTimeout(this.interval);
+      clearInterval(this.interval);
       delete this.server.players[this.player];
       this.server.send("disconnect", {
         player: this.player,

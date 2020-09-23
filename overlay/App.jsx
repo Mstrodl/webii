@@ -23,22 +23,32 @@ export function App() {
           setPlayers(players);
           setPin(msg.d.pin);
         } else if (msg.op == "connect") {
-          players[msg.d.player] = true;
+          setPlayers((players) =>
+            Object.assign({}, players, {[msg.d.player]: true})
+          );
         } else if (msg.op == "disconnect") {
-          players[msg.d.player] = false;
+          setPlayers((players) =>
+            Object.assign({}, players, {[msg.d.player]: false})
+          );
         }
       });
 
       ws.addEventListener("close", () => {
         if (ws) {
           ws = null;
-          connect();
+          setTimeout(() => {
+            console.log("Timeout hit");
+            connect();
+          }, 500);
         }
       });
       ws.addEventListener("error", () => {
         if (ws) {
           ws = null;
-          connect();
+          setTimeout(() => {
+            console.log("Timeout hit on error");
+            connect();
+          }, 500);
         }
       });
     }
@@ -46,7 +56,9 @@ export function App() {
 
     return () => {
       if (ws) {
-        ws.close();
+        ws = null;
+        const old = ws;
+        old.close();
       }
     };
   }, []);

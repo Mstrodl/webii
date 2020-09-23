@@ -127,6 +127,7 @@ const errors = {
   4002: "You were kicked",
   4003: "Room is full",
   4004: "Internal error: bad format",
+  4005: "Session was closed",
 };
 
 function Controller({setError, pin}) {

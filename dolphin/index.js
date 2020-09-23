@@ -12,20 +12,28 @@ const wss = new WebSocket.Server({
 });
 const clients = new Set();
 wss.on("connection", (client) => {
-  clients.add(client);
-  send(
-    "hello",
-    {
-      pin,
-      players: Object.keys(players),
-    },
-    client
-  );
-  client.on("close", () => {
-    clients.delete(client);
-  });
+  if (pin) {
+    clients.add(client);
+    send(
+      "hello",
+      {
+        pin,
+        players: Object.keys(players),
+      },
+      client
+    );
+    client.on("close", () => {
+      clients.delete(client);
+    });
+  } else {
+    console.log(
+      "Got a connection from overlay, but dropping it since we aren't ready yet"
+    );
+    client.close();
+  }
 });
 const ws = new WebSocket(config.server);
+
 function broadcast(op, data) {
   for (const client of clients) {
     try {
