@@ -82,7 +82,7 @@ class Dolphin {
       pin: this.pin,
     });
     this.ws.on("close", () => {
-      this.sessions.delete(this.pin);
+      sessions.delete(this.pin);
       clearInterval(this.interval);
     });
   }
