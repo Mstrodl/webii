@@ -1,0 +1,11 @@
+<svg width="1280" height="720" version="1.1" viewBox="0 0 338.67 190.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <rect width="338.67" height="190.5" fill="#34beec"/>
+ <rect x="56.802" y="31.951" width="281.86" height="158.55"/>
+ <image x="9.972" y="65.248" width="14.052" height="57.813" preserveAspectRatio="none" xlink:href="file:///home/mary/projects/webii/web/wiimote.svg"/>
+ <image x="32.585" y="65.248" width="14.052" height="57.813" preserveAspectRatio="none" xlink:href="file:///home/mary/projects/webii/web/wiimote.svg"/>
+ <image x="32.585" y="128.56" width="14.052" height="57.813" opacity=".4" preserveAspectRatio="none" xlink:href="file:///home/mary/projects/webii/web/wiimote.svg"/>
+ <image x="9.972" y="128.56" width="14.052" height="57.813" preserveAspectRatio="none" xlink:href="file:///home/mary/projects/webii/web/wiimote.svg"/>
+ <text transform="translate(63.143 -1.5875)" fill="#ffffff" font-family="sans-serif" font-size="19.756px" letter-spacing="0px" word-spacing="0px" style="line-height:1.25;shape-inside:url(#rect2192);white-space:pre" xml:space="preserve"><tspan x="46.863281" y="25.745758"><tspan fill="#ffffff" font-family="Roboto" font-weight="500">The Contactless Wii</tspan></tspan></text>
+ <image x="4.9531" y="13.328" width="46.702" height="46.702" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFcAAABXAQMAAABLBksvAAAABlBMVEUAAAD///+l2Z/dAAAAAnRSTlP//8i138cAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAC4SURBVDiNzdMxDsIwDAVQow7ZegJLuYa3Xim5QAoXaK+UrddA4gLp5iGScaHQpbhiQMLTGzL8fMsg28BfuAAkQgBveJYaqPZiOmPoMLgDJ6qHjoIHlhoZ3xl2rfnjtP1l1zpF8epk14Vq6+opW5ZJRlZ7wzPXpOHZcnGNMKZODAtfY/bj4/1Ha37yA1leepDmksWw9pnIj2I6Y5/XrgwHB5G97QTN2Zle9nsbOjH83G9Lln99U9/5Dl2otWqJC2fyAAAAAElFTkSuQmCC" preserveAspectRatio="none"/>
+ <text transform="translate(-3.2455 .99487)" fill="#000000" font-family="sans-serif" font-size="9.8778px" letter-spacing="0px" word-spacing="0px" style="line-height:1.25;shape-inside:url(#rect2638);white-space:pre" xml:space="preserve"><tspan x="6.671875" y="10.283994"><tspan fill="#ffffff" font-family="Roboto" font-size="9.8778px" font-weight="500">Join Game:</tspan></tspan></text>
+</svg>

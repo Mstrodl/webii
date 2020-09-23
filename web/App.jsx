@@ -7,6 +7,13 @@ export function App() {
   const [pin, setPin] = useState(null);
   const [error, setError] = useState(null);
 
+  useEffect(() => {
+    // Pin can be included in link for QR codes
+    if (location.hash.length > 1) {
+      setPin(location.hash.substring(1));
+    }
+  }, []);
+
   let child = null;
   if (!pin) {
     return <PinPicker setPin={(pin) => setPin(pin)} error={error} />;
@@ -169,6 +176,10 @@ function Controller({setError, pin}) {
           });
         })
         .catch((err) => {
+          alert(
+            "It seems like your hardware might not have an accelerometer! You can still play, but won't have tilt controls. Error: " +
+              err.message
+          );
           console.error("No gyro support?", err);
         });
       return () => {

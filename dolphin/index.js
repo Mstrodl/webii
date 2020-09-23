@@ -6,9 +6,38 @@ const dgram = require("dgram");
 
 const config = JSON.parse(fs.readFileSync("./config.json", "utf8"));
 
+const wss = new WebSocket.Server({
+  port: config.localPort,
+  server: "127.0.0.1",
+});
+const clients = new Set();
+wss.on("connection", (client) => {
+  clients.add(client);
+  send(
+    "hello",
+    {
+      pin,
+      players: Object.keys(players),
+    },
+    client
+  );
+  client.on("close", () => {
+    clients.delete(client);
+  });
+});
 const ws = new WebSocket(config.server);
-function send(op, data) {
-  ws.send(
+function broadcast(op, data) {
+  for (const client of clients) {
+    try {
+      send(op, data, client);
+    } catch (err) {
+      console.warn("Issue broadcasting, termianting client");
+      client.terminate();
+    }
+  }
+}
+function send(op, data, client) {
+  (client || ws).send(
     JSON.stringify({
       op,
       d: data,
@@ -117,18 +146,22 @@ setInterval(() => {
   }
 }, 250);
 
+let pin = null;
 const HANDLERS = {
   hello(data) {
+    pin = data.pin;
     console.log("We have pin " + data.pin);
   },
   connect(data) {
     players[data.player] = {buttons: {}, axes: {}, timestamp: null};
+    broadcast("connect", {player: data.player});
     console.log(
       `Controller ${data.player} is now connected by client ${data.clientId}`
     );
   },
   disconnect(data) {
     delete players[data.player];
+    broadcast("disconnect", {player: data.player});
     console.log(
       `Controller ${data.player} has been removed by client ${data.clientId}`
     );

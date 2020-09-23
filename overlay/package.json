@@ -1,0 +1,33 @@
+{
+  "name": "webii-overlay",
+  "version": "1.0.0",
+  "description": "Webpage to show the connected controllers and game pin of the current Dolphin server for OBS overlays",
+  "main": "dist/index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/mstrodl/webii.git"
+  },
+  "keywords": [
+    "dolphin-emu",
+    "dolphin",
+    "controller"
+  ],
+  "author": "Mary Strodl <ipadlover8322@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mstrodl/webii/issues"
+  },
+  "homepage": "https://github.com/mstrodl/webii#readme",
+  "dependencies": {
+    "parcel": "^2.0.0-beta.1",
+    "qrcode.react": "^1.0.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.6"
+  }
+}
