@@ -2,6 +2,11 @@ html, body {
   margin: 0;
 }
 
+.controller svg {
+    height: 100vh;
+    width: auto;
+}
+
 .pin-picker {
   margin: 1em;
 }
