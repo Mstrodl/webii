@@ -133,6 +133,11 @@ const errors = {
 function Controller({setError, pin}) {
   const [connected, setConnected] = useState(false);
   const [client, setClient] = useState(null);
+  const [granted, setGranted] = useState(
+    typeof DeviceOrientationEvent == "undefined" ||
+      typeof DeviceOrientationEvent.requestPermission != "function"
+  );
+  const [prompting, setPrompting] = useState(false);
   useEffect(() => {
     const client = new Client(pin, () => {
       setConnected(true);
@@ -152,7 +157,7 @@ function Controller({setError, pin}) {
     };
   }, [pin]);
   useEffect(() => {
-    if (connected) {
+    if (connected && granted) {
       let running = true;
       const gn = new GyroNorm();
       gn.init()
@@ -179,15 +184,18 @@ function Controller({setError, pin}) {
         .catch((err) => {
           alert(
             "It seems like your hardware might not have an accelerometer! You can still play, but won't have tilt controls. Error: " +
-              err.message
+              (err.message || err)
           );
           console.error("No gyro support?", err);
         });
       return () => {
         running = false;
+        gn.stop();
       };
+    } else if (!granted && connected) {
+      setPrompting(true);
     }
-  }, [connected]);
+  }, [connected, granted]);
 
   if (!connected) {
     return "Connecting...";
@@ -195,6 +203,30 @@ function Controller({setError, pin}) {
   console.log(client.player);
   return (
     <div className="controller">
+      {prompting && (
+        <div className="modal-contain">
+          <div className="modal">
+            <div className="text">
+              Before we can get you playing, we need permission to get motion
+              data from your device so we can tell the game how the controller
+              is moving!
+            </div>
+            <div className="contain">
+              <button
+                type="button"
+                onClick={() =>
+                  DeviceOrientationEvent.requestPermission().then((state) => {
+                    setPrompting(false);
+                    setGranted(state == "granted");
+                  })
+                }
+              >
+                Okay!
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       <svg
         width="36.113mm"
         height="148.58mm"
