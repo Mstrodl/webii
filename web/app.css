@@ -50,3 +50,11 @@ html, body {
   width: 100%;
   position: absolute;
 }
+
+
+.controller {
+  user-select: none;
+}
+.controller text {
+  user-select: none;
+}
