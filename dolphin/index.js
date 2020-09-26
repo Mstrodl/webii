@@ -134,9 +134,9 @@ function generate(playerId) {
   }
 
   if (axes.gyroscope) {
-    packet.writeFloatLE(axes.gyroscope.x, 68);
-    packet.writeFloatLE(axes.gyroscope.y, 72);
-    packet.writeFloatLE(axes.gyroscope.z, 76);
+    packet.writeFloatLE(axes.gyroscope.x, 68); // pitch
+    packet.writeFloatLE(axes.gyroscope.y, 72); // yaw
+    packet.writeFloatLE(axes.gyroscope.z, 76); // roll
   }
 
   const packed = pack(0x100002, packet);

@@ -167,16 +167,15 @@ function Controller({setError, pin}) {
               client.axis("accelerometer", {
                 // 1g = 9.8m/s²
                 x: data.dm.gx / 9.8,
-                y: data.dm.gy / 9.8,
-                // Z should be fine
-                z: data.dm.gz / 9.8,
+                y: data.dm.gz / 9.8,
+                z: -data.dm.gy / 9.8,
                 t: Date.now(),
               });
               client.axis("gyroscope", {
                 // (Degrees / sec)
-                x: data.dm.alpha,
-                y: -data.dm.gamma,
-                z: data.dm.beta,
+                x: data.dm.alpha, // Pitch
+                y: data.dm.beta, // Yaw
+                z: data.dm.gamma, // Roll
               });
             }
           });
