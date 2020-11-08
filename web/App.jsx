@@ -2,6 +2,7 @@ import * as icons from "./icons.jsx";
 import config from "./config.json";
 import React, {useState, useEffect} from "react";
 import GyroNorm from "gyronorm/dist/gyronorm.complete.min.js";
+import {Pointer} from "./Pointer.jsx";
 
 export function App() {
   const [pin, setPin] = useState(null);
@@ -47,7 +48,7 @@ function PinPicker({setPin, error}) {
       <button
         type="button"
         className="join-btn"
-        onClick={() => setPin(tempPin)}
+        onClick={() => setPin(tempPin.toLowerCase())}
       >
         Join Game
       </button>
@@ -83,6 +84,10 @@ class Client {
       button,
       state,
     });
+  }
+
+  ir(x, y, z) {
+    this.send("ir", {x, y, z});
   }
 
   axis(axis, {x, y, z}) {
@@ -137,6 +142,7 @@ function Controller({setError, pin}) {
     typeof DeviceOrientationEvent == "undefined" ||
       typeof DeviceOrientationEvent.requestPermission != "function"
   );
+  const [pointing, setPointing] = useState(true); // false
   const [prompting, setPrompting] = useState(false);
   useEffect(() => {
     const client = new Client(pin, () => {
@@ -226,6 +232,7 @@ function Controller({setError, pin}) {
           </div>
         </div>
       )}
+      {pointing && <Pointer client={client} />}
       <svg
         width="36.113mm"
         height="148.58mm"

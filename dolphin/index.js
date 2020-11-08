@@ -121,6 +121,21 @@ function generate(playerId) {
   packet[30] = buttons.a ? 255 : 0;
   packet[31] = buttons.two ? 255 : 0;
 
+  // IR
+  packet[36] = player.point.hidden;
+  packet[37] = 1;
+  packet.writeUInt16LE(player.point.x, 38);
+  packet.writeUInt16LE(player.point.x, 40);
+  // Cursed, steals Left X- / Left X+
+  packet[20] = player.point.distance;
+  packet[21] = player.point.hidden;
+  // // IR
+  // console.log(player.point);
+  // packet.writeFloatLE(player.point.x, 80);
+  // packet.writeFloatLE(player.point.y, 84);
+  // packet[88] = player.point.hidden ? 255 : 0;
+  // packet.writeFloatLE(player.point.distance, 89);
+
   // Motion timestamp
   if (player.timestamp) {
     packet.writeUInt32LE(player.timestamp.low, 48);
@@ -161,7 +176,12 @@ const HANDLERS = {
     console.log("We have pin " + data.pin);
   },
   connect(data) {
-    players[data.player] = {buttons: {}, axes: {}, timestamp: null};
+    players[data.player] = {
+      buttons: {},
+      axes: {},
+      timestamp: null,
+      point: {x: 0, y: 0, hidden: true, distance: 0},
+    };
     broadcast("connect", {player: data.player});
     console.log(
       `Controller ${data.player} is now connected by client ${data.clientId}`
@@ -186,6 +206,19 @@ const HANDLERS = {
       players[data.player].timestamp = long.fromNumber(data.t, true);
     }
     players[data.player].axes[data.axis] = {x: data.x, y: data.y, z: data.z};
+  },
+  ir(data) {
+    console.log(data, "ir");
+    if (data.x && data.y) {
+      players[data.player].point = {
+        x: data.x,
+        y: data.y,
+        distance: data.z,
+        hidden: false,
+      };
+    } else {
+      players[data.player].point.hidden = true;
+    }
   },
 };
 

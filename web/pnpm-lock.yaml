@@ -1,5 +1,6 @@
 dependencies:
   gyronorm: 2.0.6
+  js-aruco: 0.1.0
   parcel: 2.0.0-beta.1
   react: 16.13.1
   react-dom: 16.13.1_react@16.13.1
@@ -4193,6 +4194,10 @@ packages:
     dev: false
     resolution:
       integrity: sha1-R+Y/evVa+m+S4VAOaQ64uFKcCZo=
+  /js-aruco/0.1.0:
+    dev: false
+    resolution:
+      integrity: sha1-HjG9OrQYP3KKBCBPOie8k0GWOtU=
   /js-levenshtein/1.1.6:
     dev: false
     engines:
@@ -6594,6 +6599,7 @@ packages:
 specifiers:
   '@babel/core': ^7.11.6
   gyronorm: ^2.0.6
+  js-aruco: ^0.1.0
   parcel: ^2.0.0-beta.1
   react: ^16.13.1
   react-dom: ^16.13.1

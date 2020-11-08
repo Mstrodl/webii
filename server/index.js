@@ -190,6 +190,17 @@ class Client {
     }
   }
 
+  onIr(data) {
+    if (this.player !== null) {
+      this.server.send("ir", {
+        player: this.player,
+        x: data.x,
+        y: data.y,
+        z: data.z,
+      });
+    }
+  }
+
   onStick(data) {
     if (this.player !== null) {
       if (data.axis == "accelerometer") {

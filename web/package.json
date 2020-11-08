@@ -23,6 +23,7 @@
   "homepage": "https://github.com/mstrodl/webii#readme",
   "dependencies": {
     "gyronorm": "^2.0.6",
+    "js-aruco": "^0.1.0",
     "parcel": "^2.0.0-beta.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
