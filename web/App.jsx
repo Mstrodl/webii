@@ -13,6 +13,17 @@ export function App() {
     if (location.hash.length > 1) {
       setPin(location.hash.substring(1));
     }
+
+    function handler(event) {
+      event.preventDefault();
+      const elem = document.documentElement;
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+      }
+    }
+
+    window.addEventListener("touchstart", handler);
+    return () => window.removeEventListener("touchstart", handler);
   }, []);
 
   let child = null;
@@ -117,6 +128,10 @@ function Button({type, client, children}) {
         event.preventDefault();
         client.button(type, true);
       }}
+      onTouchMove={(event) => {
+        event.preventDefault();
+        client.button(type, true);
+      }}
       onTouchEnd={() => {
         event.preventDefault();
         client.button(type, false);
@@ -142,7 +157,7 @@ function Controller({setError, pin}) {
     typeof DeviceOrientationEvent == "undefined" ||
       typeof DeviceOrientationEvent.requestPermission != "function"
   );
-  const [pointing, setPointing] = useState(true); // false
+  const [pointing, setPointing] = useState(false); // false
   const [prompting, setPrompting] = useState(false);
   useEffect(() => {
     const client = new Client(pin, () => {
@@ -166,7 +181,9 @@ function Controller({setError, pin}) {
     if (connected && granted) {
       let running = true;
       const gn = new GyroNorm();
-      gn.init()
+      gn.init({
+        frequency: 10,
+      })
         .then(() => {
           gn.start((data) => {
             if (running) {

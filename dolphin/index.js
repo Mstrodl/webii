@@ -126,7 +126,7 @@ function generate(playerId) {
   packet[37] = 1;
   packet.writeUInt16LE(player.point.x, 38);
   packet.writeUInt16LE(player.point.x, 40);
-  // Cursed, steals Left X- / Left X+
+  // Cursed, steals Left X / Left Y
   packet[20] = player.point.distance;
   packet[21] = player.point.hidden;
   // // IR
