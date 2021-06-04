@@ -19,6 +19,8 @@ export function App() {
       const elem = document.documentElement;
       if (elem.requestFullscreen) {
         elem.requestFullscreen();
+      } else if (elem.webkitRequestFullscreen) {
+        elem.webkitRequestFullscreen();
       }
     }
 
