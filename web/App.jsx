@@ -113,6 +113,10 @@ class Client {
 
 function Button({type, client, children}) {
   const Icon = icons[type];
+  /* onTouchMove={(event) => {
+   *         event.preventDefault();
+   *         client.button(type, true);
+   *         }} */
   return (
     <g
       className={`button button-${type}`}
@@ -125,10 +129,6 @@ function Button({type, client, children}) {
         client.button(type, false);
       }}
       onTouchStart={(event) => {
-        event.preventDefault();
-        client.button(type, true);
-      }}
-      onTouchMove={(event) => {
         event.preventDefault();
         client.button(type, true);
       }}
