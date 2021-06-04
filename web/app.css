@@ -52,9 +52,11 @@ html, body {
 }
 
 
-.controller {
-  user-select: none;
-}
-.controller text {
-  user-select: none;
+.controller, .controller text {
+  -webkit-user-select: none !important;
+  user-select: none !important;
+  -webkit-touch-callout: none !important;
+  -webkit-user-select: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+  -moz-user-select: none !important;
 }

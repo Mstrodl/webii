@@ -74,7 +74,6 @@ function generate(playerId) {
     console.log("No connection for " + playerId);
     return;
   }
-  // console.log("Generating packet for " + playerId + " port=" + connection.port);
   const packet = Buffer.alloc(80);
   packet[0] = playerId;
   packet[1] = 2;
@@ -278,12 +277,12 @@ server.on("message", (msg, rinfo) => {
     }
     case 0x100002: {
       // console.log("R :PadInfo");
-      if (msg[21] == 0) {
+      if (msg[20] == 0) {
         for (let i = 0; i < 4; ++i) {
           reporting.set(i, rinfo);
         }
-      } else if (msg[21] == 1) {
-        reporting.set(msg[22], rinfo);
+      } else if (msg[20] == 1) {
+        reporting.set(msg[21], rinfo);
       }
 
       for (const playerId of reporting.keys()) {
