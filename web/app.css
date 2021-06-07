@@ -60,3 +60,21 @@ html, body {
   -webkit-tap-highlight-color: transparent !important;
   -moz-user-select: none !important;
 }
+
+@media (prefers-color-scheme: dark) {
+  .controller *[fill="#f2f2f4"] {
+    fill: #000 !important;
+  }
+  .controller *[fill="#eee"] {
+    fill: #000 !important;
+  }
+  .controller *[stroke="#000000"] {
+    stroke: #f2f2f4 !important;
+  }
+  .controller *[fill="#000000"] {
+    fill: #f2f2f4 !important;
+  }
+  html, body {
+    background: #000;
+  }
+}

@@ -261,13 +261,14 @@ function Controller({setError, pin}) {
       >
         <g transform="translate(-62.997 -97.765)">
           <rect
+            className="controller-rect"
             x="63.272"
             y="98.04"
             width="35.562"
             height="148.03"
             ry="6.3718"
             fill="#f2f2f4"
-            stroke="#000"
+            stroke="#000000"
             strokeLinecap="round"
             strokeLinejoin="bevel"
             strokeWidth=".551"
@@ -279,7 +280,7 @@ function Controller({setError, pin}) {
                 cy="206.99"
                 r="4.2259"
                 fill="#eee"
-                stroke="#000"
+                stroke="#000000"
                 strokeLinecap="round"
                 strokeLinejoin="bevel"
                 strokeWidth=".551"
@@ -311,7 +312,7 @@ function Controller({setError, pin}) {
                 y="181.95"
                 width="10.642"
                 height="12.522"
-                stroke="#000"
+                stroke="#000000"
                 strokeLinecap="round"
                 strokeLinejoin="bevel"
                 strokeWidth=".48353"
@@ -350,7 +351,7 @@ function Controller({setError, pin}) {
               id="button-up"
               transform="translate(-.058556)"
               fill="none"
-              stroke="#000"
+              stroke="#000000"
               strokeWidth=".551"
             >
               <path
@@ -365,7 +366,7 @@ function Controller({setError, pin}) {
               id="button-down"
               transform="translate(-.058556)"
               fill="none"
-              stroke="#000"
+              stroke="#000000"
               strokeWidth=".551"
             >
               <path
@@ -380,7 +381,7 @@ function Controller({setError, pin}) {
               id="button-left"
               transform="translate(-.058556)"
               fill="none"
-              stroke="#000"
+              stroke="#000000"
               strokeWidth=".551"
             >
               <path
@@ -395,7 +396,7 @@ function Controller({setError, pin}) {
               id="button-right"
               transform="translate(-.058556)"
               fill="none"
-              stroke="#000"
+              stroke="#000000"
               strokeWidth=".551"
             >
               <path
@@ -412,7 +413,7 @@ function Controller({setError, pin}) {
                 cx="81.962"
                 cy="220.22"
                 r="4.2259"
-                stroke="#000"
+                stroke="#000000"
                 strokeLinecap="round"
                 strokeLinejoin="bevel"
                 strokeWidth=".551"
@@ -443,7 +444,7 @@ function Controller({setError, pin}) {
                 cx="82.252"
                 cy="144.22"
                 r="5.7947"
-                stroke="#000"
+                stroke="#000000"
                 strokeLinecap="round"
                 strokeLinejoin="bevel"
                 strokeWidth=".551"
@@ -472,7 +473,7 @@ function Controller({setError, pin}) {
               id="button-start"
               transform="translate(-.072498)"
               fill="none"
-              stroke="#000"
+              stroke="#000000"
             >
               <circle
                 cx="91.988"
@@ -488,7 +489,7 @@ function Controller({setError, pin}) {
             </g>
           </Button>
           <Button client={client} type="select">
-            <g id="button-select" fill="none" stroke="#000">
+            <g id="button-select" fill="none" stroke="#000000">
               <circle
                 cx="71.98"
                 cy="168.79"
@@ -508,7 +509,7 @@ function Controller({setError, pin}) {
               cy="168.79"
               r="3.0848"
               fill="none"
-              stroke="#000"
+              stroke="#000000"
               strokeLinecap="round"
               strokeLinejoin="bevel"
               strokeWidth=".551"
