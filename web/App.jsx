@@ -1,6 +1,6 @@
 import * as icons from "./icons.jsx";
 import config from "./config.json";
-import React, {useState, useEffect} from "react";
+import React, {useState, useCallback, useEffect} from "react";
 import GyroNorm from "gyronorm/dist/gyronorm.complete.min.js";
 import {Pointer} from "./Pointer.jsx";
 
@@ -33,17 +33,54 @@ export function App() {
     return <PinPicker setPin={(pin) => setPin(pin)} error={error} />;
   } else {
     return (
-      <Controller
-        pin={pin}
-        setError={(error) => {
-          setError(error);
-          setPin(null);
-        }}
-      />
+      <>
+        <Controller
+          pin={pin}
+          setError={(error) => {
+            setError(error);
+            setPin(null);
+          }}
+        />
+        <DarkToggle />
+      </>
     );
   }
 
   return <div className="app">{child}</div>;
+}
+
+function DarkToggle() {
+  const [dark, setDark] = useState(
+    window.matchMedia("(prefers-color-scheme: dark)").matches
+  );
+  useEffect(() => {
+    const match = window.matchMedia("(prefers-color-scheme: dark)");
+    console.log("Matched?", match);
+    const listener = (match) => {
+      console.log("Updated");
+      setDark(match.matches);
+    };
+    listener(match);
+    match.addEventListener("change", listener);
+    return () => {
+      match.removeEventListener("change", listener);
+    };
+  }, []);
+  useEffect(() => {
+    if (dark) {
+      document.documentElement.classList.add("dark");
+      document.documentElement.classList.remove("light");
+    } else {
+      document.documentElement.classList.remove("dark");
+      document.documentElement.classList.add("light");
+    }
+  }, [dark]);
+  const onClick = useCallback(() => setDark((dark) => !dark), []);
+  return (
+    <div className="dark-toggle" onClick={onClick}>
+      <icons.Moon />
+    </div>
+  );
 }
 
 function PinPicker({setPin, error}) {
