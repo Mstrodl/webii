@@ -1,6 +1,8 @@
 # Webii
 A system allowing anyone to enjoy zero-contact Wii with their friends!
 
+<img src="./img/device.png" width="350" alt="Cellphone showing a Wii remote" />
+
 ## Setup
 
 ### Build the web interface
@@ -90,3 +92,5 @@ Once you have the Dolphin server running, users can open the web interface and t
 
 ## Future ideas
 At some point, I'd like to explore having the client use WebRTC for message passing instead of WebSockets for reduced latency, but the current WebSocket approach was chosen due to WebRTC sometimes being blocked by some corporate firewalls.
+
+![Display showing a QR code and Wii sports playing](./img/presenter.png)
